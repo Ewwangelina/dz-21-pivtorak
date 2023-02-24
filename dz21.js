@@ -3,21 +3,17 @@ class Human {
     this.name = name;
     this.sex = sex;
   }
-
-  introduce() {
+  getHumanType() {
     console.log(`Привет, меня зовут ${this.name}, и я ${this.sex}.`);
   }
 }
-
 const person = new Human('Иван', 'мужчина');
+person.getHumanType();
 const person1 = new Human('Ольга', 'женщина');
-
-person.introduce(); 
-person1.introduce(); 
+person1.getHumanType();
 
 class Apartment {
   residents = [];
-
   addResident(resident) {
     if (resident instanceof Human) {
       this.residents.push(resident);
@@ -27,12 +23,10 @@ class Apartment {
     }
   }
 }
-
 const apartment = new Apartment();
 const person2 = new Human('Иван', 'мужчина');
+apartment.addResident(person2);
 const person3 = new Human('Ольга', 'женщина');
-
-apartment.addResident(person2); 
 apartment.addResident(person3); 
 
 class House {
@@ -40,7 +34,6 @@ class House {
   static apartmentsCount = 0;
   
   residents = [];
-
   constructor() {
     if (House.apartmentsCount < House.maxApartments) {
       House.apartmentsCount++;
@@ -48,7 +41,6 @@ class House {
       throw new Error('Достигнуто максимальное количество квартир.');
     }
   }
-
   addResident(resident) {
     if (resident instanceof Human) {
       this.residents.push(resident);
@@ -57,7 +49,6 @@ class House {
       console.log(`Ошибка: Невозможно добавить жителя. Переданный объект не является экземпляром класса Человек.`);
     }
   }
-
   static getApartmentsCount() {
     return House.apartmentsCount;
   }
