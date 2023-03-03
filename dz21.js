@@ -3,54 +3,50 @@ class Human {
     this.name = name;
     this.sex = sex;
   }
-  getHumanType() {
-    console.log(`Привет, меня зовут ${this.name}, и я ${this.sex}.`);
-  }
 }
-const person = new Human('Иван', 'мужчина');
-person.getHumanType();
-const person1 = new Human('Ольга', 'женщина');
-person1.getHumanType();
 
-class Apartment {
-  residents = [];
-  addResident(resident) {
-    if (resident instanceof Human) {
-      this.residents.push(resident);
-      console.log(`Житель ${resident.name} добавлен в квартиру`);
+class Flat {
+  people = [];
+
+  setHuman(human) {
+    if (human instanceof Human) {
+      this.people.push(human);
     } else {
-      console.log(`Ошибка: Невозможно добавить жителя. Переданный объект не является экземпляром класса Человек.`);
+      console.log('People accept only instance of class Apartment');
     }
   }
 }
-const apartment = new Apartment();
-const person2 = new Human('Иван', 'мужчина');
-apartment.addResident(person2);
-const person3 = new Human('Ольга', 'женщина');
-apartment.addResident(person3); 
 
-class House {
-  static maxApartments = 10;
-  static apartmentsCount = 0;
-  
-  residents = [];
-  constructor() {
-    if (House.apartmentsCount < House.maxApartments) {
-      House.apartmentsCount++;
-    } else {
-      throw new Error('Достигнуто максимальное количество квартир.');
-    }
+class Build {
+  constructor(maxFlat) {
+    this.flats = [];
+    this.maxFlat = maxFlat;
   }
-  addResident(resident) {
-    if (resident instanceof Human) {
-      this.residents.push(resident);
-      console.log(`Житель ${resident.name} добавлен в квартиру`);
-    } else {
-      console.log(`Ошибка: Невозможно добавить жителя. Переданный объект не является экземпляром класса Человек.`);
+
+  setFlat(flat) {
+    if (this.flats.length <= this.maxFlat) {
+      if (flat instanceof Flat) {
+        this.flats.push(flat);
+      }else {
+        console.log('Flats accept only instance of class Flat');
+      }
+    }else {
+      console.log(`Max flats length ${this.maxFlat}`);
     }
-  }
-  static getApartmentsCount() {
-    return House.apartmentsCount;
   }
 }
 
+const people1 = new Human('Ivan', 'male');
+const people2 = new Human('Marta', 'female');
+
+console.log(people1);
+console.log(people2);
+
+const flat = new Flat();
+const flat1 = new Flat();
+
+flat.setHuman(people1);
+flat1.setHuman(people2);
+
+console.log(flat);
+console.log(flat1);
